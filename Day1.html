@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Build Timer</title>
+</head>
+<body>
+    <h1>Building Timer</h1>  
+    <div class="timer">00:00:00:00</div>
+    <button class="start">Start</button>
+    <button class="reset">Reset</button>
+    <button class="stop">stop</button>
+</body>
+<script>
+    let timer = document.querySelector(".timer");
+    let start = document.querySelector(".start");
+    let stop = document.querySelector(".stop");
+    let reset = document.querySelector(".reset");
+        var milliseconds = 0;
+  	    var seconds = 0;
+  	    var minutes = 0;
+	    var hours = 0;
+	    var watch;
+	    function startTimer(){
+		    watch=setInterval(function(){
+			    milliseconds++;
+			    if(milliseconds==60) {
+				    milliseconds=0;
+				    seconds++;		
+		
+	   		    if(seconds==60) {
+				    seconds=0;
+				    minutes++;
+	   
+	   		    if(minutes==60){
+				    minutes=0;
+				    hours++;
+	   		    }
+		    }
+	    }
+	
+		timer.innerHTML = timing(hours)+":"+timing(minutes)+":"+timing(seconds)+":"+timing(milliseconds);
+		    }, 100);
+	    }
+
+		function stopTimer(){
+			clearInterval(watch);
+		}
+		function resetTimer(){
+			clearInterval(watch);
+			hours = 0;
+			minutes = 0;
+			seconds = 0;
+			timer.innerHTML = "00:00:00:00";
+		}
+		function timing(integer){
+			var string = integer + "";
+			if(string<10){
+				return "0"+string;
+				}else{
+					return string;
+			}
+		}
+		start.addEventListener('click',startTimer);
+		stop.addEventListener('click',stopTimer);
+		reset.addEventListener('click',resetTimer);
+
+
+</script>
+</html>
