@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODO LIST</title>
+    <style>
+        body{
+    background-image: url('http://3.bp.blogspot.com/-TSeN-286uoU/T6yq2YXkToI/AAAAAAAAAIQ/L-zOX-VXtjE/s1600/wallpaper-spring-fall-nature-backgrounds-for-desktop-laptop.jpg');
+    
+        }
+
+        .navbar{
+            padding:10px 10px;
+            background-color:black;
+            color: white;
+            /* position: fixed; */
+        }
+        h1{
+            margin-left: 40px;
+        }
+        h2{
+            margin-left: 80px;
+            color: greenyellow;
+        }
+        input{
+            padding:10px 50px;
+            margin-left: 80px;
+            border: 1px solid #ffffff;
+            border-radius: 7px;
+            font-weight: bolder;
+        }
+        .adding-details{
+            border: 1px solid white;
+            margin-top: 50px;
+            width: 30%;
+            border-radius: 7px;
+            margin-left: 20px;
+            font-weight: bolder;
+        }
+        .btn{
+            padding:15px 45px;
+            margin-top: 20px;
+            margin-left: 165px;
+            margin-bottom: 20px;
+            background-color: greenyellow;
+            border: greenyellow;
+            border-radius: 7px;
+        }
+        .display{
+            width: 40%;
+            color:greenyellow;
+            margin-top: 20px;
+            margin-left: 600px;
+            transform: translateY(-417px);
+        }
+        table{
+            margin: auto;
+            border:1px solid white;
+            padding:10px 20px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            font-size: 20px;
+            font-weight: bolder;
+            background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%);
+        }
+        th{
+            border:1px solid greenyellow;
+            margin-left: 50px;
+            color: white;
+            font-size: 25px;
+            font-weight: bolder;
+            padding: 10px 10px;
+        }
+        td{
+            border:1px solid white;
+    margin-left: 50px;
+    /* color: yellow; */
+    color:black;
+    font-size: 20px;
+    font-weight: bolder;
+    text-align: center;
+}
+.deleting{
+  height: 50px;
+}
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <h1>TODO LIST</h1>
+    </nav>
+    <div class="adding-details">
+        <h2>Student Name</h2>
+        <input class="name" type="text" placeholder="enter student name"/>
+        <h2>Student Marks</h2>
+        <input class="marks" type="number" placeholder="enter student marks"/>
+        <h2>Student Grade</h2>
+        <input class="grade" type="text" placeholder="enter student grade"/><br>
+        <button class="btn">ADD</button>
+    </div>
+    <div class="display"></div>
+</body>
+<script>
+    let button = document.querySelector(".btn");
+    var add = JSON.parse(localStorage.getItem("tododata")) || [];
+		let CreateTable = document.createElement("table");
+		let tableRow = document.createElement("tr");
+		let tableHead = document.createElement("th");
+		tableHead.textContent = "Sudent Name";
+		let tableHead1 = document.createElement("th");
+		tableHead1.textContent = " Marks";
+		let tableHead2 = document.createElement("th");
+		tableHead2.textContent = "Grade ";
+		let tableHead3 = document.createElement("th");
+		tableHead3.textContent = "Delete";
+		tableRow.append(tableHead,tableHead1,tableHead2,tableHead3);
+		CreateTable.appendChild(tableRow);
+
+		let display = document.querySelector(".display");
+		display.appendChild(CreateTable);
+        button.onclick = function() {
+			let name = document.querySelector(".name").value;
+			let marks = document.querySelector(".marks").value;
+			let grade = document.querySelector(".grade").value;
+
+            if (name === "" && marks === "" && grade === ""){
+                alert("todo list is empty");
+            }
+            else{
+			let tableRow = document.createElement("tr");
+			let tableData = document.createElement("td");
+			tableData.textContent = name;
+			let tableData1 = document.createElement("td");
+			tableData1.textContent = marks;
+			let tableData2 = document.createElement("td");
+			tableData2.textContent = grade;
+			let tableData3 = document.createElement("button");
+			tableData3.textContent = "delete"
+            tableData3.style.backgroundColor = "red";
+            tableData3.setAttribute("deleting","class");
+            tableData3.style.padding = "10px 25px";
+			tableRow.append(tableData,tableData1,tableData2,tableData3);
+			CreateTable.appendChild(tableRow);
+		
+			let display = document.querySelector(".display");
+			display.appendChild(CreateTable);
+			console.log(name,marks,grade);
+
+
+            tableData3.onclick=function(){
+                    tableRow.remove();
+            }
+               alert("student details added to todo list");
+               localStorage.setItem("tododata", JSON.stringify([...add, { name, marks, grade }]));
+               console.log(localStorage.getItem("tododata"));
+        }
+
+}
+</script>
+</html>
